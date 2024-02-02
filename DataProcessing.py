@@ -93,6 +93,26 @@ class DataPreparation:
 
         print(f'Combined PDF report saved at: {output_path}')
 
+    def generate_pie_chart(self, output_path = 'pie chart'):
+
+        data = self.data.copy()
+        feature_labels_name = data.columns.tolist()
+        class_labels_name = feature_labels_name.pop(-1)
+
+        if not os.path.exists(output_path):
+
+            os.makedirs(output_path)
+        
+        class_data = data[class_labels_name]
+        class_instance_count = class_data.value_counts()
+        plt.pie(class_instance_count, labels = class_instance_count.index, startangle=90)
+        labels = [f'{category}: {count / class_instance_count.sum() * 100:.1f}%' for category, count in class_instance_count.items()]
+        plt.legend(labels, loc="center left", bbox_to_anchor=(1, 0.5))
+        plt.title('Categorical Distribution of Wine Quality')
+        output_file = os.path.join(output_path, f'{class_labels_name}_pie_chart.png')
+        plt.savefig(output_file)
+        plt.close()
+        print(f'Pie chart saved at: {output_file}')
 
 
 

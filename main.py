@@ -6,6 +6,7 @@ def main():
     prep_instance = DataPreparation(data)
     prep_instance.generate_histogram()
     prep_instance.generate_pdf()
+    prep_instance.generate_pie_chart()
 
 
 
