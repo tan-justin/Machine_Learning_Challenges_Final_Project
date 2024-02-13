@@ -1,0 +1,11 @@
+Feature: fixed acidity, Outlier Count: 49
+Feature: volatile acidity, Outlier Count: 19
+Feature: citric acid, Outlier Count: 1
+Feature: residual sugar, Outlier Count: 155
+Feature: chlorides, Outlier Count: 112
+Feature: free sulfur dioxide, Outlier Count: 30
+Feature: total sulfur dioxide, Outlier Count: 55
+Feature: density, Outlier Count: 45
+Feature: pH, Outlier Count: 35
+Feature: sulphates, Outlier Count: 59
+Feature: alcohol, Outlier Count: 13

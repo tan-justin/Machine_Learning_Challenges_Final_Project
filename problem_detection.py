@@ -28,18 +28,21 @@ class CollinearDetect:
         else:
             plt.xticks(np.arange(len(corr_matrix.columns)), corr_matrix.columns, rotation = 90)
             plt.yticks(np.arange(len(corr_matrix.columns)), corr_matrix.columns)
-        print('Saving correlation heatmap into "collinear directory"')
+        print('Saving correlation heatmap into "collinear" directory')
         plt.savefig(os.path.join(self.output_dir, "correlation_matrix.png"))
 
     def calculate_eigenvalues(self):
         corr_matrix = self.x.corr()
         eigenvalues = np.linalg.eigvals(corr_matrix)
-        print("Eigenvalues of the correlation matrix:")
-        for i, eigenvalue in enumerate(eigenvalues):
-            if self.feature_labels:
-                print(f"{self.feature_labels[i]}: {eigenvalue}")
-            else:
-                print(f"Feature {i}: {eigenvalue}")
+        output_file = os.path.join(self.output_dir, "eigenvalues.txt")
+        with open(output_file, "w") as file:
+            print('Saving eigen values into "collinear" directory')
+            file.write("Eigenvalues of the correlation matrix:\n")
+            for i, eigenvalue in enumerate(eigenvalues):
+                if self.feature_labels:
+                    file.write(f"{self.feature_labels[i]}: {eigenvalue}\n")
+                else:
+                    file.write(f"Feature {i}: {eigenvalue}\n")
 
     def plot_scatterplots(self):
         x = self.x.copy()
@@ -55,19 +58,22 @@ class CollinearDetect:
                     axes[i, j].set_xlabel(self.feature_labels[i])
                     axes[i, j].set_ylabel(self.feature_labels[j])
         plt.tight_layout()
-        print('Saving scatterplots into collinear directory')
+        print('Saving scatterplots into "collinear" directory')
         plt.savefig(os.path.join(self.output_dir, "scatterplots.png"))
 
     def pca(self):
         pca = PCA()
         pca.fit(self.x)
         explained_variance_ratio = pca.explained_variance_ratio_
-        print("Explained variance ratio by each principal component:")
-        for i, variance_ratio in enumerate(explained_variance_ratio):
-            if self.feature_labels:
-                print(f"{self.feature_labels[i]}: {variance_ratio}")
-            else:
-                print(f"Feature {i}: {variance_ratio}")
+        output_file = os.path.join(self.output_dir, "explained_variance_ratio.txt")
+        with open(output_file, "w") as file:
+            print('Saving variance ratio into "collinear" directory')
+            file.write("Explained variance ratio by each principal component:\n")
+            for i, variance_ratio in enumerate(explained_variance_ratio):
+                if self.feature_labels:
+                    file.write(f"{self.feature_labels[i]}: {variance_ratio}\n")
+                else:
+                    file.write(f"Feature {i}: {variance_ratio}\n")
 
     def calculate_regression_coefficients(self):
         X = self.x 
@@ -75,9 +81,12 @@ class CollinearDetect:
         model = LinearRegression()
         model.fit(X, y)
         coefficients = model.coef_
-        print("Regression coefficients:")
-        for i, coef in enumerate(coefficients):
-            if self.feature_labels:
-                print(f"{self.feature_labels[i]}: {coef}")
-            else:
-                print(f"Feature {i}: {coef}")
+        output_file = os.path.join(self.output_dir, "regression_coefficients.txt")
+        with open(output_file, "w") as file:
+            print('Saving regression coefficients into "collinear" directory')
+            file.write("Regression coefficients:\n")
+            for i, coef in enumerate(coefficients):
+                if self.feature_labels:
+                    file.write(f"{self.feature_labels[i]}: {coef}\n")
+                else:
+                    file.write(f"Feature {i}: {coef}\n")

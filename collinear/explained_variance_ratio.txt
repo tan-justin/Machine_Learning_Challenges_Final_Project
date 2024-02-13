@@ -1,0 +1,12 @@
+Explained variance ratio by each principal component:
+fixed acidity: 0.9465769763954628
+volatile acidity: 0.04836830457481646
+citric acid: 0.0025891718286608738
+residual sugar: 0.0015189679843917012
+chlorides: 0.0008735539896340854
+free sulfur dioxide: 3.456072181725664e-05
+total sulfur dioxide: 1.936276139807602e-05
+density: 9.472780792108285e-06
+pH: 8.413766282179476e-06
+sulphates: 1.2147279814409335e-06
+alcohol: 4.687627877902503e-10

@@ -1,5 +1,6 @@
 from DataProcessing import read_csv_data, DataPreparation
 from problem_detection import CollinearDetect
+from outliers import OutlierDetection
 
 def main():
     csv_file_path = "winequality-red.csv"
@@ -14,6 +15,9 @@ def main():
     collinear_instance.plot_scatterplots()
     collinear_instance.pca()
     collinear_instance.calculate_regression_coefficients()
+    outlier_instance = OutlierDetection(data)
+    outlier_instance.count_outliers_by_feature()
+    outlier_instance.calculate_z_scores()
 
 
 
