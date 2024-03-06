@@ -4,13 +4,14 @@ from sklearn.ensemble import RandomForestClassifier #model 1
 from sklearn.dummy import DummyClassifier #baseline
 from sklearn.neighbors import KNeighborsClassifier #model 2
 from sklearn.neural_network import MLPClassifier #model 3
-from sklearn.model_selection import GroupKFold
+#from sklearn.model_selection import GroupKFold
 from sklearn.model_selection import StratifiedGroupKFold
-from sklearn.model_selection import KFold
+#from sklearn.model_selection import KFold
 from sklearn.tree import DecisionTreeClassifier #model 4 if we need it
 from collections import Counter
 from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import train_test_split #to generate train and test sets
+from sklearn.metrics import accuracy_score
 
 '''
 In here, we're supposed to work on class imbalance. I need to take time to plan how to do challenge 2 and 3. 
@@ -81,4 +82,33 @@ class ChallengeOne:
         df_resampled = pd.DataFrame(X_resampled, columns = train.columns[:-1])
         df_resampled[train.columns[-1]] = y_resampled
         self.smote = df_resampled
+
+    def test_and_print(self):
+        oversampled = self.oversampled
+        smote = self.smote
+        ipp = self.ipp
+        test = self.test
+
+    def random_forest(self):
+        #write methods for using random forest here. train 1 random forest classifier on each of the training set.
+        #Then test the classifier using train-test-split(dont want stratified group kfold from influencing the accuracy)
+        #Finally classify the test set with each classifier and get the accuracies
+        oversampled = self.oversampled
+        smote = self.smote
+        ipp = self.ipp
+        test = self.test
+        
+        pass
+
+    def knn(self):
+        #write methods for using knn model
+        pass
+
+    def mlp(self):
+        #write methods for using mlp model
+        pass
+
+    def baseline(self):
+        pass
+
 
