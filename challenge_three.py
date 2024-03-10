@@ -189,30 +189,37 @@ class ChallengeThree:
 
     def binning(self):
         
-        train_original = self.train.copy()
         train = self.train.copy()
-        X = train_original.iloc[:,:-1]
-        y = train_original.iloc[:,-1]
-        features = X.columns[:-1]
-        target_column = 'quality'
-        num_bins = 5
-        for feature in X.columns:
-            sorted_indices = np.argsort(train[feature])
-            bin_size = len(train) // num_bins
-            remainder = len(train) % num_bins
-            bins = np.zeros(len(train))
-            for i in range(num_bins):
-                bins[sorted_indices[i * bin_size : (i + 1) * bin_size]] = i
-            if remainder > 0:
-                bins[sorted_indices[num_bins * bin_size:]] = num_bins - 1
-            train[f'{feature}_bin_equal_freq'] = bins.astype(int)
-        target = train.pop(target_column)
-        train[target_column] = target
-        self.bins = train
-        self.bin = bins
-
         X = train.iloc[:,:-1]
         y = train.iloc[:,-1]
+        
+        z_scores = pd.DataFrame(index = X.index)
+
+        for column in X.columns:
+            z_score = (X[column] - X[column].mean())/X[column].std()
+            z_scores[column] = z_score
+
+        #for column in z_scores.columns:
+        #    print((z_scores[column] > 3).sum())
+
+        bin_boundaries = [-np.inf, -3, np.percentile(z_scores.values, 25), np.percentile(z_scores.values, 50),
+                  np.percentile(z_scores.values, 75), 3, np.inf]
+        #for i, boundary in enumerate(bin_boundaries):
+        #    print(f"Bin {i}: {boundary}")
+        binned_features = pd.DataFrame(index= X.index)
+        for column in z_scores.columns:
+            binned_features[f'{column}_bin'] = np.digitize(z_scores[column], bin_boundaries)
+        binned_X = pd.concat([X, binned_features], axis=1)
+        binned_df = pd.concat([binned_X, y], axis=1)
+        self.bins = binned_df
+        self.bin = bin_boundaries
+        #for column in binned_features.columns:
+        #    for a in range(1,7):
+        #        print((binned_features[column] == a).sum())
+        #for column in z_scores.columns:
+        #    print((binned_features[f'{column}_bin'] == 6).sum() == (z_scores[column] > 3).sum())
+        X = binned_df.iloc[:,:-1]
+        y = binned_df.iloc[:,-1]
         skf = StratifiedKFold(n_splits = 5, shuffle = True, random_state = 0)
         classifiers = ['rf','3nn','MLP','dummy']
         avg_accuracy = {}
@@ -255,8 +262,10 @@ class ChallengeThree:
         imput = self.imput.copy()
         winsor = self.winsor.copy()
         remove = self.remove.copy()
+        bins = self.bins.copy()
+        boundary = self.bin
 
-        strategy = ['remove','winsor','imput']
+        strategy = ['remove','winsor','imput','bin']
         test_accuracy = {}
         classifiers = ['rf','3nn','MLP','dummy']
 
@@ -355,9 +364,44 @@ class ChallengeThree:
 
                 test_accuracy[strat] = acc
 
+            if strat == 'bin':
+                X_train = bins.iloc[:,:-1]
+                y_train = bins.iloc[:,-1]
+                X = test.iloc[:,:-1]
+                y_test = test.iloc[:,-1]
+                acc = {}
+                
+                z_scores = pd.DataFrame(index = X.index)
+                for column in X.columns:
+                    z_score = (X[column] - X[column].mean())/X[column].std()
+                    z_scores[column] = z_score
+                binned_features = pd.DataFrame(index= X.index)
+                for column in z_scores.columns:
+                    binned_features[f'{column}_bin'] = np.digitize(z_scores[column], boundary)
+                X_test = pd.concat([X, binned_features], axis=1)
 
-            
-            
+                rf.fit(X_train, y_train)
+                nn3.fit(X_train, y_train)
+                mlp.fit(X_train, y_train)
+                dum.fit(X_train, y_train)
+
+                y_pred_rf = rf.predict(X_test)
+                y_pred_nn3 = nn3.predict(X_test)
+                y_pred_mlp = mlp.predict(X_test)
+                y_pred_dum = dum.predict(X_test)
+
+                for clf in classifiers:
+                    if clf == 'rf':
+                        acc[clf] = accuracy_score(y_test, y_pred_rf)
+                    if clf == '3nn':
+                        acc[clf] = accuracy_score(y_test, y_pred_nn3)
+                    if clf == 'MLP':
+                        acc[clf] = accuracy_score(y_test, y_pred_mlp)
+                    if clf == 'dummy':
+                        acc[clf] = accuracy_score(y_test, y_pred_dum)
+
+                test_accuracy[strat] = acc
+
         print(test_accuracy)
 
         

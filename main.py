@@ -64,7 +64,7 @@ def main():
     c3.remove_outliers()
     c3.winsorize()
     c3.imputation()
-    #c3.binning()
+    c3.binning()
     c3.test_strat()
 
 
