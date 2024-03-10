@@ -3,6 +3,7 @@ from problem_detection import CollinearDetect
 from outliers import OutlierDetection
 from challenge_one import ChallengeOne
 from challenge_two import ChallengeTwo
+from challenge_three import ChallengeThree
 
 def main():
     csv_file_path = "winequality-red.csv"
@@ -26,7 +27,7 @@ def main():
 
     '''
 
-   
+    '''
 
     c1 = ChallengeOne(data)
     c1.oversample()
@@ -38,6 +39,8 @@ def main():
     print(s)
     print(i)
     print(test)
+
+    '''
 
     
     '''
@@ -56,6 +59,13 @@ def main():
     print(r)
     print(test_feature)
     '''
+
+    c3 = ChallengeThree(data)
+    c3.remove_outliers()
+    c3.winsorize()
+    c3.imputation()
+    #c3.binning()
+    c3.test_strat()
 
 
 if __name__ == "__main__":
