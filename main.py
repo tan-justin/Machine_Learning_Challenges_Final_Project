@@ -4,6 +4,7 @@ from outliers import OutlierDetection
 from challenge_one import ChallengeOne
 from challenge_two import ChallengeTwo
 from challenge_three import ChallengeThree
+from feat_impt import FeatImportance
 
 def main():
     csv_file_path = "winequality-red.csv"
@@ -60,13 +61,18 @@ def main():
     print(test_feature)
     '''
 
+    '''
     c3 = ChallengeThree(data)
     c3.remove_outliers()
     c3.winsorize()
     c3.imputation()
     c3.binning()
     c3.test_strat()
+    '''
 
+    fi = FeatImportance(data)
+    #fi.check_if_same()
+    fi.random_forest_importance()
 
 if __name__ == "__main__":
     main()
