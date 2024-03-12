@@ -60,12 +60,11 @@ class FeatImportance:
         model.fit(X_train, y_train)
         feature_importances = model.feature_importances_
 
-        plt.figure(figsize=(20, 20))
+        plt.figure(figsize=(32, 20))
         plt.bar(X_train.columns, feature_importances)
-        plt.xlabel('Features')
-        plt.ylabel('Importance')
+        plt.ylabel('Importance', fontsize = 20)
         plt.title('Feature Importances')
-        plt.xticks(rotation=90)
+        plt.xticks(rotation=0, fontsize=15)
         #plt.show()
 
         directory = "Feature_Importance"
@@ -85,12 +84,11 @@ class FeatImportance:
             print(f'{cl}: {feature_importances[iter]}//{feature_importances2[iter]}')
             iter += 1
 
-        plt.figure(figsize=(20, 20))
+        plt.figure(figsize=(32, 20))
         plt.bar(X_whole.columns, feature_importances2)
-        plt.xlabel('Features')
-        plt.ylabel('Importance')
+        plt.ylabel('Importance', fontsize = 20)
         plt.title('Feature Importances')
-        plt.xticks(rotation=90)
+        plt.xticks(rotation=0, fontsize = 15)
 
         classifier_name = type(model).__name__
         plt.savefig(f"{directory}/{classifier_name}_Feature_Importance_whole.png")
