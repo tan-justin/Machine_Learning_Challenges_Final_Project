@@ -36,7 +36,7 @@ def oversample(train_set):
 
     return oversampled
     
-def cv_oversample(data_set, classifier):
+def cv(data_set, classifier):
 
     data  = data_set.copy()
     skf = StratifiedKFold(n_splits = 5, shuffle = 0, random_state = 0)
@@ -123,12 +123,26 @@ class ChallengeOneExtra:
         X = self.X
         y = self.y
         skf = StratifiedKFold(n_splits = 5, shuffle = 0, random_state = 0)
+        strategy = self.strategy.copy()
+        classifier = self.classifier.copy()
+
+        o_avg = {}
+        s_avg = {}
         
+
         for train, test in skf.split(X, y):
             X_train, X_test = X.iloc[train], X.iloc[test]
             y_train, y_test = y.iloc[train], y.iloc[test]
-            self.train = pd.concat([X_train, y_train], axis = 1)
-            self.test = pd.concat([X_test, y_test], axis = 1)
+            train = pd.concat([X_train, y_train], axis = 1)
+            test = pd.concat([X_test, y_test], axis = 1)
+            
+            oversampled = oversample(train)
+            smote = apply_smote(train)
+            ipp = inverse_prior_probabilities(train)
+
+            
+
+
 
     
 
