@@ -1,3 +1,10 @@
+'''
+Name: Justin Tan
+Assignment: Final Project
+Date: March 20 2024
+File: feat_impt.py
+'''
+
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
@@ -6,6 +13,33 @@ import shap
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import os
+'''
+Type: Function
+Name: normalize
+Purpose: perform normalization for dataset to handle 
+Parameters: standard deviation (sd), mean (mean), value to be normalized (val)
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Class
+Name: FeatImportance
+Purpose: Performs pre-processing of data and contain the functions required to apply class imbalance strategies and test them
+Parameters: dataset (data)
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: __init__
+Purpose: Pre-processing of data, train-test splits and normalization of data
+Parameters: Dataset
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: check_if_same
+Purpose: Ensures that the dataset produced is the correct dataset, that is, the features normalized correctly
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: random_forest_importance
+Purpose: Uses a random forest classifier to determine the influence each feature has on prediction. Outputs 2 graphs
+Parameters: None
+'''
+
 
 def normalize(sd, mean, val):
     return (val - mean)/sd

@@ -1,9 +1,54 @@
+'''
+Name: Justin Tan
+Assignment: Final Project
+Date: March 20 2024
+File: problem_detection.py
+'''
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 from sklearn.linear_model import LinearRegression
 import os
+
+'''
+Type: Class
+Name: CollinearDetect
+Purpose: Determining collinearity of the dataset
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: __init__
+Purpose: Pre-processing of data and directory creation to store findings
+Parameters: Dataset (data)
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: plot_correlation_matrix
+Purpose: Outputs a heatmap showing the collinearity between non-target features
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: calculate_eigen_values
+Purpose: Calculate the eigen values of each feature. Higher eigen values indicates higher possibility of high multicollinearity
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: plot_scatterplots
+Purpose: Plots the scatterplots showing each item as a 2-dimensional item using 2 features into a single file
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: pca
+Purpose: Obtain the explained variance ratio of each feature after applying PCA onto the dataset
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: calculate_regression_coefficients
+Purpose: Obtain the regression coefficients of each feature after applying linear regression on the dataset. Larger magnitudes
+indicate higher possibility of multicollinearity
+Parameters: None
+'''
 
 class CollinearDetect:
 

@@ -14,6 +14,12 @@ from sklearn.model_selection import train_test_split #to generate train and test
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import MinMaxScaler
 
+
+'''
+Warning: Incomplete, DO NOT RUN THIS FILE
+
+'''
+
 def normalize(sd, mean, val):
     return (val - mean)/sd
 
@@ -128,7 +134,7 @@ class ChallengeOneExtra:
 
         o_avg = {}
         s_avg = {}
-        
+
 
         for train, test in skf.split(X, y):
             X_train, X_test = X.iloc[train], X.iloc[test]

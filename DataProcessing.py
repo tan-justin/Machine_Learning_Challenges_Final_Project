@@ -1,3 +1,10 @@
+'''
+Name: Justin Tan
+Assignment: Final Project
+Date: March 20 2024
+File: DataProcessing.py
+'''
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -5,6 +12,45 @@ import os
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from io import BytesIO
+
+'''
+Type: Function
+Name: read_csv_data
+Purpose: Converts a csv dataset into a pandas dataframe
+Parameters: file path of the data set
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Class
+Name: DataPreparation
+Purpose: Obtain a data profile of the dataset
+Parameters: dataset (data)
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: __init__
+Purpose: setting the dataframe as self value
+Parameters: Dataset
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: data_profile
+Purpose: Obtain the following of each feature: mean, median, min value, max value, number of missing values and data type. Returns
+a dictionary containing all of those values
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: generate_histogram
+Purpose: Generate a histogram of each non-target feature showing the frequency of each value
+Parameters: number of bins (10) and the output directory name
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: generate_pdf
+Purpose: Generates a pdf data profile containing the information obtained from data_profile(), generate_histogram() and 
+generate_pie_chart()
+Parameters: output directory name
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: generate_pie_chart
+Purpose: Create a pie chart showcasing the class distribution of the dataset. The class distribution is based on the target variable
+Parameters: output directory name
+'''
 
 def read_csv_data(file_path):
 

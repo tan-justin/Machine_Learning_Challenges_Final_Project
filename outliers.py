@@ -1,5 +1,38 @@
+'''
+Name: Justin Tan
+Assignment: Final Project
+Date: March 20 2024
+File: outliers.py
+'''
+
 import os
 import pandas as pd
+
+'''
+Type: Class
+Name: OutlierDetection
+Purpose: Determining whether outliers exist within the dataset, and how prevalent they are
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: __init__
+Purpose: Pre-processing of data and directory creation to store findings
+Parameters: Dataset (data)
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: count_outliers_by_feature
+Purpose: Determine which items are outliers. Outliers are defined if the feature value they possess is smaller than the 25th
+percentile - 1.5 * (75th percentile - 25th percentile) or larger than the 75th percentile + 1.5 * (75th percentile - 25th
+percentile) of the feature. Output the outliers as a file
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: calculate_z_scores
+Purpose: Calculate the z-score values of each item based on the feature it represents. If the z-score magnitude is larger than 3, 
+it is immediately treated as an outlier. All outliers will be outputted as part of a file along with the feature they are an
+outlier in
+Parameters: None
+'''
 
 class OutlierDetection:
 

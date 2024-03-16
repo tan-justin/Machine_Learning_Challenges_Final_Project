@@ -1,3 +1,10 @@
+'''
+Name: Justin Tan
+Assignment: Final Project
+Date: March 20 2024
+File: challenge_one.py
+'''
+
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier #model 1
@@ -15,13 +22,41 @@ from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import MinMaxScaler
 
 '''
-In here, we're supposed to work on class imbalance. I need to take time to plan how to do challenge 2 and 3. 
-1) Oversampling
-2) SMOTE
-3) Inverse Prior Probabilities
-
-collinearity: feature selection, regularization, dimensionality reduction
-outlier: removal of outliers, winsorizing, imputation
+Type: Function
+Name: normalize
+Purpose: perform normalization for dataset to handle 
+Parameters: standard deviation (sd), mean (mean), value to be normalized (val)
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Class
+Name: ChallengeOne
+Purpose: Performs pre-processing of data and contain the functions required to apply class imbalance strategies and test them
+Parameters: dataset (data)
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: __init__
+Purpose: Pre-processing of data, train-test splits and normalization of data
+Parameters: Dataset
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: oversample
+Purpose: Make a copy of the dataset and apply random, simple oversampling to the copied dataset 
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: inverse_prior_probabilities
+Purpose: Make a copy of the dataset and apply inverse prior probabilities to the copied dataset
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: apply_smote
+Purpose: Make a copy of the dataset and apply SMOTE to the copied dataset
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: test_and_print
+Purpose: Perform cross-validation of training dataset and then applying the models trained on the training set and using it to
+predict the test set
+Parameters: None
 '''
 
 def normalize(sd, mean, val):

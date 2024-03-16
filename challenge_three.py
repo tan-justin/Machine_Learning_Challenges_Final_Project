@@ -1,3 +1,10 @@
+'''
+Name: Justin Tan
+Assignment: Final Project
+Date: March 20 2024
+File: challenge_three.py
+'''
+
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier #model 1
@@ -8,6 +15,53 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.model_selection import train_test_split #to generate train and test sets
 from sklearn.metrics import accuracy_score
 from scipy.stats import zscore
+
+'''
+Type: Function
+Name: normalize
+Purpose: perform normalization for dataset to handle 
+Parameters: standard deviation (sd), mean (mean), value to be normalized (val)
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Class
+Name: ChallengeThree
+Purpose: Performs pre-processing of data and contain the functions required to apply outlier strategies and test them
+Parameters: dataset (data)
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: __init__
+Purpose: Pre-processing of data, train-test splits and normalization of data
+Parameters: Dataset
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: remove_outliers
+Purpose: Outlier items are items that have at least one feature with a z-score value that is bigger than 3 or smaller than -3.
+A copy of the dataset will have those outlier items removed, and cross validation is performed on the new dataset
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: winsorize
+Purpose: For outlier items that have a feature value that has a z-score value larger than 3 or smaller than -3, replace those
+values with the 95th percentile or 5th percentile of the feature respectively. Cross-validation was performed on the new
+dataset
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: imputation (modified winsorizing would be the correct terminology)
+Purpose: Similar to winsorize, but instead of replacing with the 95th percentile or the 5th percentile, we replace outlier values
+with the median of the respective feature. Cross-validation is performed on the new dataset 
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: Binning
+Purpose: Perform binning of values for each feature. The binning boundaries are: (-inf, -3],(-3, 25th percentile],
+(25th percentile, 50th percentile],(50th percentile, 75th percentile],(75th percentile, 3),[3, inf) 
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: test_acc
+Purpose: Perform train-test using models trained on strategy-applied datasets
+Parameters: None
+'''
 
 def normalize(sd, mean, val):
     return (val - mean)/sd

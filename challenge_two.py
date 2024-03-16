@@ -1,4 +1,9 @@
-#this is the code for collinearity
+'''
+Name: Justin Tan
+Assignment: Final Project
+Date: March 20 2024
+File: challenge_two.py
+'''
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier #model 1
@@ -12,6 +17,46 @@ import statsmodels.api as sm
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
+
+'''
+Type: Function
+Name: normalize
+Purpose: perform normalization for dataset to handle 
+Parameters: standard deviation (sd), mean (mean), value to be normalized (val)
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Class
+Name: ChallengeTwo
+Purpose: Performs pre-processing of data and contain the functions required to apply multicollinearity strategies and test them
+Parameters: dataset (data)
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: __init__
+Purpose: Pre-processing of data, train-test splits and normalization of data
+Parameters: Dataset
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: feat_select
+Purpose: Performs VIF on the dataset to determine which features to drop and create a new dataset that has those features dropped,
+then using the new dataset, perform cross-validation
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: dimen_reduction
+Purpose: Make a copy of the dataset and apply PCA onto the dataset. Perform cross-validation on this dataset that has PCA applied
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: regularization
+Purpose: Apply a regularization parameter to the logistic regression classifier and apply an alpha parameter to the MLP
+classifier. Random Forest has new parameters to perform early stopping, which is similar to regularization
+Parameters: None
+---------------------------------------------------------------------------------------------------------------------------------
+Type: Function
+Name: test_acc
+Purpose: Perform train-test using models trained on strategy-applied datasets and for regularization, using the same models in 
+the regularization function
+Parameters: None
+'''
 
 def normalize(sd, mean, val):
     return (val - mean)/sd
