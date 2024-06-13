@@ -98,6 +98,7 @@ class ChallengeThree:
         #print(filtered_y)
         self.remove = pd.concat([filtered_X, filtered_y], axis = 1)
 
+        # Cross-validation starts here
 
         skf = StratifiedKFold(n_splits = 5, shuffle = True, random_state = 0)
         classifiers = ['rf','3nn','MLP','dummy']
@@ -151,9 +152,9 @@ class ChallengeThree:
             if outliers_low.any():
                 X.loc[outliers_low, col] = X[col][~outliers_low].quantile(0.05)
 
-        #print(X)
         self.winsor = pd.concat([X, y], axis = 1)
-        #print(self.winsor)
+        # Cross-validation starts here
+
         skf = StratifiedKFold(n_splits = 5, shuffle = True, random_state = 0)
         classifiers = ['rf','3nn','MLP','dummy']
         avg_accuracy = {}
@@ -205,6 +206,8 @@ class ChallengeThree:
                     X.at[index, column] = median
 
         self.imput = pd.concat([X, y], axis = 1)
+
+        # Cross-validation starts here
         
         skf = StratifiedKFold(n_splits = 5, shuffle = True, random_state = 0)
         classifiers = ['rf','3nn','MLP','dummy']
@@ -252,14 +255,8 @@ class ChallengeThree:
         for column in X.columns:
             z_score = (X[column] - X[column].mean())/X[column].std()
             z_scores[column] = z_score
-
-        #for column in z_scores.columns:
-        #    print((z_scores[column] > 3).sum())
-
         bin_boundaries = [-np.inf, -3, np.percentile(z_scores.values, 25), np.percentile(z_scores.values, 50),
                   np.percentile(z_scores.values, 75), 3, np.inf]
-        #for i, boundary in enumerate(bin_boundaries):
-        #    print(f"Bin {i}: {boundary}")
         binned_features = pd.DataFrame(index= X.index)
         for column in z_scores.columns:
             binned_features[f'{column}_bin'] = np.digitize(z_scores[column], bin_boundaries)
@@ -267,13 +264,11 @@ class ChallengeThree:
         binned_df = pd.concat([binned_X, y], axis=1)
         self.bins = binned_df
         self.bin = bin_boundaries
-        #for column in binned_features.columns:
-        #    for a in range(1,7):
-        #        print((binned_features[column] == a).sum())
-        #for column in z_scores.columns:
-        #    print((binned_features[f'{column}_bin'] == 6).sum() == (z_scores[column] > 3).sum())
         X = binned_df.iloc[:,:-1]
         y = binned_df.iloc[:,-1]
+
+        # Cross-validation starts here
+
         skf = StratifiedKFold(n_splits = 5, shuffle = True, random_state = 0)
         classifiers = ['rf','3nn','MLP','dummy']
         avg_accuracy = {}

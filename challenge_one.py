@@ -101,7 +101,6 @@ class ChallengeOne:
         train = self.train.copy()
         class_counts = train.iloc[:, -1].value_counts(normalize = True)
         prior_probabilities = 1/(class_counts)
-        #print(prior_probabilities)
         inverse_weights = prior_probabilities[train.iloc[:, -1]]
         weighted_features = train.iloc[:, :-1] * inverse_weights[:, np.newaxis]
         weighted_df = pd.concat([
@@ -109,9 +108,6 @@ class ChallengeOne:
             train.iloc[:, -1]
         ], axis=1)
         self.ipp = weighted_df
-        #class_counts = self.ipp.iloc[:, -1].value_counts()
-        #print("self.ipp:")
-        #print(self.ipp)
 
     def apply_smote(self):
         train = self.train.copy()
@@ -146,6 +142,8 @@ class ChallengeOne:
         y_i = ipp.iloc[:,-1]
         X_test = test.iloc[:,:-1]
         y_test = test.iloc[:,-1]
+
+        # Cross-validation starts here
 
         skf = StratifiedKFold(n_splits = 8, shuffle = True, random_state = 0)
         classifiers = ['rf','3nn','MLP','dummy']
@@ -254,6 +252,8 @@ class ChallengeOne:
         for classifier in avg_i_accuracy:
             avg_i_accuracy[classifier] /= 8
         #------------------------------------------------------------------------
+        # train-test starts here    
+            
         test_accuracy = {}
         strategy = ['Oversample','SMOTE','IPP']
         
@@ -320,11 +320,6 @@ class ChallengeOne:
                 y_pred_3nn = nn3.predict(X_test)
                 y_pred_mlp = mlp.predict(X_test)
                 y_pred_dum = dum.predict(X_test)
-
-                #print(y_pred_rf)
-                #print(y_pred_3nn)
-                #print(y_pred_mlp)
-                #print(y_test)
 
                 acc_dict = {}
                 for clf in classifiers:

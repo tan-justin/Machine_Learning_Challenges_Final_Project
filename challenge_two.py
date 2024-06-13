@@ -92,6 +92,8 @@ class ChallengeTwo:
         ]
         threshold = 2
         features_to_drop = []
+        
+        # Cross-validation starts here
 
         for index, row in vif.iterrows():
             if row['VIF Factor'] > threshold:
@@ -149,6 +151,9 @@ class ChallengeTwo:
         pca.fit(X)
         self.pca = pca
         #print(X_pca_df)
+
+        # Cross-validation starts here
+
         skf = StratifiedKFold(n_splits = 8, shuffle = True, random_state = 0)
         classifiers = ['rf','LR','MLP','dummy']
         avg_accuracy = {}
@@ -188,6 +193,9 @@ class ChallengeTwo:
         train_r = self.train.copy()
         X = train_r.iloc[:,:-1]
         y = train_r.iloc[:,-1]
+
+        # Cross-validation starts here
+
         skf = StratifiedKFold(n_splits = 8, shuffle = True, random_state = 0)
         classifiers = ['rf','LR','MLP','dummy']
         avg_accuracy = {}

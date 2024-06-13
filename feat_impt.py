@@ -113,9 +113,9 @@ class FeatImportance:
         feature_importances2 = model2.feature_importances_
 
         iter = 0
-
+        print("Training dataset || Entire dataset")
         for cl in X_whole.columns:
-            print(f'{cl}: {feature_importances[iter]}//{feature_importances2[iter]}')
+            print(f'{cl}: {feature_importances[iter]} || {feature_importances2[iter]}')
             iter += 1
 
         plt.figure(figsize=(32, 20))
